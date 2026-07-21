@@ -1,0 +1,34 @@
+grafana:
+  enabled: true
+
+  adminPassword: Grafana@123
+
+  service:
+    type: LoadBalancer
+    
+    annotations:
+      service.beta.kubernetes.io/aws-load-balancer-subnets: "subnet-0c31b9110c002a6ce,subnet-0be7572545767197e,subnet-0eccd75a35ca08e35"
+      service.beta.kubernetes.io/aws-load-balancer-scheme: internet-facing
+
+prometheus:
+  
+ prometheusSpec:
+    storageSpec:
+      volumeClaimTemplate:
+        spec:
+          storageClassName: gp2
+          accessModes:  
+            - ReadWriteOnce
+          resources:
+            requests:
+              storage: 20Gi
+
+
+alertmanager:
+  enabled: true
+
+nodeExporter:
+  enabled: true
+
+kubeStateMetrics:
+  enabled: true
